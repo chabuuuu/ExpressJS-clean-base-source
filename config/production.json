@@ -1,0 +1,17 @@
+{
+    "request-limit": {
+        "limit": "100kb"
+    },
+    "server": {
+        "port":  4000,
+        "host": "your_server_url"
+    },
+    "cors": {
+        "origin": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "UPDATE"],
+        "allowedHeaders": ["X-Requested-With", "X-HTTP-Method-Override", "Content-Type", "Accept", "Observe", "Authorization"]
+    },
+    "helmet": true,
+    "enviroment": "production",
+    "swagger": true
+}
