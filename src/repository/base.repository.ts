@@ -1,3 +1,4 @@
+import { ErrorCode } from "@/enums/ErrorCode.enum";
 import { IBaseRepository } from "@/repository/interfaces/i.base.repository";
 import { DeleteResultType } from "@/types/DeleteResult.type";
 import { RecordOrderType } from "@/types/RecordOrder.type";
@@ -40,7 +41,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined
             })
             if (!recordToDelete) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToDelete.destroy();
             return {
@@ -66,7 +67,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
         try {
             const recordToUpdate = await this.BaseModel.findByPk(id);
             if (!recordToUpdate) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToUpdate.update(data as MakeNullishOptional<T["_creationAttributes"]>);
             return {
@@ -83,7 +84,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined
             })
             if (!recordToUpdate) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToUpdate.update(updateData as MakeNullishOptional<T["_creationAttributes"]>);
             return ({
@@ -98,7 +99,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
         try {
             const recordToDelete = await this.BaseModel.findByPk(id);
             if (!recordToDelete) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToDelete.destroy();
             return ({
@@ -115,7 +116,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined
             });
             if (!result) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             return result;
         } catch (error: any) {
@@ -130,7 +131,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 include: relations
             });
             if (!result) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             return result;
         } catch (error: any) {

@@ -1,16 +1,15 @@
 import { Expose } from "class-transformer";
 
-export class CreateHumanResponseDto {
-
+export class CreateNewDogResponseDto {
     @Expose()
     id!: string;
-
-    @Expose()
-    role!: string;
 
     @Expose()
     name!: string;
 
     @Expose()
-    username!: string;
+    breed!: string;
+
+    @Expose()
+    isGoodBoy!: boolean;
 }

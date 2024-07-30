@@ -10,9 +10,15 @@ import { Container } from "inversify";
 
 const humanDiContainer = new Container();
 
-humanDiContainer.bind<IHumanRepository<Human, string>>(DiTypes.HUMAN_REPOSITORY).to(HumanRepository);
+// Binding
+humanDiContainer.bind<IHumanRepository<Human, number>>(DiTypes.HUMAN_REPOSITORY).to(HumanRepository);
 humanDiContainer.bind<IHumanService>(DiTypes.HUMAN_SERVICE).to(HumanService);
 humanDiContainer.bind<IHumanController>(DiTypes.HUMAN_CONTROLLER).to(HumanController);
 
+// Resolve
 const humanController = humanDiContainer.get<IHumanController>(DiTypes.HUMAN_CONTROLLER);
-export { humanController };
+const humanService = humanDiContainer.get<IHumanService>(DiTypes.HUMAN_SERVICE);
+const humanRepository = humanDiContainer.get<IHumanRepository<Human, number>>(DiTypes.HUMAN_REPOSITORY);
+
+// Export module
+export { humanController, humanRepository, humanService };

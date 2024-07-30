@@ -3,6 +3,7 @@ import { ErrorResponseDTO } from "@/dto/response/ErrorResponse.dto";
 import BaseException from "@/utils/exception/BaseException";
 import { NextFunction, Request, Response } from "express";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { ValidationError } from "sequelize";
 
 class ErrorResponseHandler {
     private httpStatus: number;
@@ -51,7 +52,7 @@ class ErrorResponseHandler {
         
         //Error handling for Error
         if (error instanceof Error)
-            {
+            {                
                 return new ErrorResponseDTO("UNHANDLE_ERROR", error.message); 
             }
 
