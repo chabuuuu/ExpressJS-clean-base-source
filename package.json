@@ -31,7 +31,6 @@
     "cross-env": "^7.0.3",
     "nodemon": "^3.1.4",
     "sequelize-cli": "^6.6.2",
-    "swagger-autogen": "^2.23.7",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.5.3"

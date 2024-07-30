@@ -2,6 +2,7 @@ import { IHumanController } from "@/controllers/interfaces/i.human.controller";
 import { CreateHumanRequestDto } from "@/dto/human/CreateHumanRequestDto";
 import { CreateHumanResponseDto } from "@/dto/human/CreateHumanResponseDto";
 import { GetHumanDetailResponseDTO } from "@/dto/human/GetHumanDetailResponseDto";
+import { GetHumanResponseDto } from "@/dto/human/GetHumanResponseDto";
 import { LoginHumanRequestDto } from "@/dto/human/LoginHumanRequestDto";
 import { LoginHumanResponseDto } from "@/dto/human/LoginHumanResponseDto";
 import { RequestPageable } from "@/dto/request/RequestPagable.dto";
@@ -10,7 +11,9 @@ import { PagingResponse } from "@/dto/response/PagingResponse.dto";
 import { Human } from "@/models/humans.model";
 import { IHumanService } from "@/services/interfaces/i.human.service";
 import { DiTypes } from "@/types/di/DiTypes";
+import { Page } from "@/types/Page.type";
 import { convertToDto } from "@/utils/dto-convert/convert-to-dto";
+import { convertToPageDto } from "@/utils/dto-convert/convert-to-page-dto";
 import ResponseGenerator from "@/utils/response/ResponseGenerator";
 import {
   createHumanValidateSchema,
@@ -128,7 +131,7 @@ export class HumanController implements IHumanController {
    */
   async getHumanListPaging(
     req: Request<null, null, null, RequestPageable>,
-    res: Response<BaseResponse<PagingResponse<Human>>>,
+    res: Response<BaseResponse<PagingResponse<GetHumanResponseDto>>>,
     next: NextFunction
   ): Promise<void> {
     try {
@@ -137,12 +140,15 @@ export class HumanController implements IHumanController {
       const requestPageable = new RequestPageable(page, rpp);
 
       //Find all with paging
-      const result = await this.humanService.findAllWithPaging(requestPageable);
+      let result = await this.humanService.findAllWithPaging(requestPageable);
 
+      //Convert result to DTO
+      const convertedResult = convertToPageDto(GetHumanResponseDto, result);
+      
       //Format response
       const formatedReponse =
-        new ResponseGenerator<Human>().pagingSuccessResponse(
-          result,
+        new ResponseGenerator<GetHumanResponseDto>().pagingSuccessResponse(
+          convertedResult,
           requestPageable
         );
 

@@ -24,4 +24,9 @@ export enum ErrorCode {
      * Not found {ENTITY}
      */
     NF_01 = "NF_01",
+
+    /**
+     * Joi validate error
+     */
+    VALIDATION_ERROR = "VALIDATION_ERROR",
 }

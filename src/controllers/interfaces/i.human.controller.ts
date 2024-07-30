@@ -1,5 +1,6 @@
 import { CreateHumanResponseDto } from "@/dto/human/CreateHumanResponseDto";
 import { GetHumanDetailResponseDTO } from "@/dto/human/GetHumanDetailResponseDto";
+import { GetHumanResponseDto } from "@/dto/human/GetHumanResponseDto";
 import { LoginHumanRequestDto } from "@/dto/human/LoginHumanRequestDto";
 import { LoginHumanResponseDto } from "@/dto/human/LoginHumanResponseDto";
 import { RequestPageable } from "@/dto/request/RequestPagable.dto";
@@ -23,7 +24,7 @@ export interface IHumanController {
 
   getHumanListPaging(
     req: Request<null, null, null, RequestPageable>,
-    res: Response<BaseResponse<PagingResponse<Human>>>,
+    res: Response<BaseResponse<PagingResponse<GetHumanResponseDto>>>,
     next: NextFunction
   ): Promise<void>;
 

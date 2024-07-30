@@ -1,7 +1,9 @@
+import { FindOneReponseDto } from "@/decorators/FindOneResponseDto.decorator";
 import { PropertyDescription } from "@/decorators/PropertyDescription.decorator";
 import { PropertyExample } from "@/decorators/PropertyExample.decorator";
 import { Expose } from "class-transformer";
 
+@FindOneReponseDto()
 export class CreateNewDogResponseDto {
     @Expose()
     @PropertyExample("1")

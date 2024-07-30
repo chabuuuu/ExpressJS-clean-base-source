@@ -33,7 +33,7 @@ export class DogController implements IDogController {
    *           schema:
    *             $ref: '#/components/schemas/CreateNewDogRequestDto'
    *     responses:
-   *       200:
+   *       201:
    *         description: Create new dog successfully
    *         content:
    *           application/json:
@@ -41,8 +41,18 @@ export class DogController implements IDogController {
    *               $ref: '#/components/schemas/CreateNewDogResponseDto'
    *       400:
    *         description: Bad request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/CreateNewDog_VALIDATION_ERROR'
    *       500:
    *         description: Internal server error
+   */
+  /**
+   ** POST /dog/create 
+   * @param req 
+   * @param res 
+   * @param next 
    */
   async createNewDog(
     req: Request,
