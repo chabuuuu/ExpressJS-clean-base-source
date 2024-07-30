@@ -1,7 +1,10 @@
-import { DeleteResultType, IBaseRepository, UpdateResultType } from "@/repository/interfaces/i.base.repository";
+import { RequestPageable } from "@/dto/request/RequestPagable.dto";
+import { IBaseRepository } from "@/repository/interfaces/i.base.repository";
 import { IBaseCrudService } from "@/services/interfaces/i.base-crud.service";
-import { convertToDto } from "@/utils/dto-convert/convert-to-dto";
-import { ClassConstructor } from "class-transformer";
+import { DeleteResultType } from "@/types/DeleteResult.type";
+import { Page } from "@/types/Page.type";
+import { RecordOrderType } from "@/types/RecordOrder.type";
+import { UpdateResultType } from "@/types/UpdateResult.type";
 import { injectable } from "inversify";
 
 @injectable()
@@ -10,6 +13,24 @@ export class BaseCrudService<MODEL,ID> implements IBaseCrudService<MODEL, ID> {
 
     constructor(repository: IBaseRepository<MODEL, ID>) {
         this.repository = repository;
+    }
+
+    public async findAllWithPaging(requestPageable: RequestPageable): Promise<Page<MODEL>> {
+        const content = await this.repository.findAllWithPaging(requestPageable.rpp, requestPageable.page);
+        const totalRecords = await this.repository.findAll();
+        return {
+            content: content,
+            totalElements: totalRecords.length
+        }
+    }
+
+    public async findAllWithPagingAndOrder(requestPageable: RequestPageable, order: RecordOrderType): Promise<Page<MODEL>> {
+        const content = await this.repository.findAllWithPagingAndOrder(order, requestPageable.rpp, requestPageable.page);
+        const totalRecords = await this.repository.findAll();
+        return {
+            content: content,
+            totalElements: totalRecords.length
+        };
     }
 
     public async create<DTO>(data: DTO): Promise<MODEL> {   

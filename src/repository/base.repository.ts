@@ -1,4 +1,7 @@
-import { DeleteResultType, IBaseRepository, RecordOrderType, UpdateResultType } from "@/repository/interfaces/i.base.repository";
+import { IBaseRepository } from "@/repository/interfaces/i.base.repository";
+import { DeleteResultType } from "@/types/DeleteResult.type";
+import { RecordOrderType } from "@/types/RecordOrder.type";
+import { UpdateResultType } from "@/types/UpdateResult.type";
 import BaseException from "@/utils/exception/BaseException";
 import { injectable } from "inversify";
 import { Attributes, Identifier, WhereOptions } from "sequelize";
@@ -7,8 +10,20 @@ import { MakeNullishOptional } from "sequelize/types/utils";
 
 @injectable()
 export abstract class BaseRepository<T extends Model, ID extends Identifier | undefined> implements IBaseRepository<T, ID> {
-    
+
     protected BaseModel!: ModelCtor<T>;
+
+    public async findAllWithPaging(pageSize: number, pageNumber: number): Promise<T[]> {
+        try {
+            const result = await this.BaseModel.findAll({
+                limit: pageSize,
+                offset: (pageNumber - 1) * pageSize
+            });
+            return result;
+        } catch (error: any) {
+            throw error;
+        }
+    }
 
     public async create(data: T): Promise<T> {
         try {            
@@ -144,7 +159,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
             const result = await this.BaseModel.findAll({
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined,
                 limit: pageSize,
-                offset: pageNumber * pageSize,
+                offset: (pageNumber - 1) * pageSize,
                 order: order ? [[order.column, order.direction]] : undefined
             });
             return result;
@@ -162,7 +177,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
         }
     }
 
-    public async findAllWithPaging(order: RecordOrderType, pageSize: number, pageNumber: number): Promise<T[]> {
+    public async findAllWithPagingAndOrder(order: RecordOrderType, pageSize: number, pageNumber: number): Promise<T[]> {
         try {
             const result = await this.BaseModel.findAll({
                 limit: pageSize,

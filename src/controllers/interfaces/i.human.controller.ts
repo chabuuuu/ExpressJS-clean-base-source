@@ -1,6 +1,9 @@
 import { CreateHumanResponseDto } from "@/dto/human/CreateHumanResponseDto";
 import { GetHumanDetailResponseDTO } from "@/dto/human/GetHumanDetailResponseDto";
+import { RequestPageable } from "@/dto/request/RequestPagable.dto";
 import { BaseResponse } from "@/dto/response/BaseResponse.dto";
+import { PagingResponse } from "@/dto/response/PagingResponse.dto";
+import { Human } from "@/models/humans.model";
 import { NextFunction, Request, Response } from "express";
 
 export interface IHumanController {
@@ -15,4 +18,10 @@ export interface IHumanController {
     res: Response<BaseResponse<GetHumanDetailResponseDTO>>, 
     next: NextFunction) 
     :Promise<void>
+
+    getHumanListPaging(
+        req: Request<null, null, null, RequestPageable>,
+        res: Response<BaseResponse<PagingResponse<Human>>>, 
+        next: NextFunction
+    ): Promise<void> 
 }
