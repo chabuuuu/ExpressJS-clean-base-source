@@ -1,26 +1,15 @@
 import "dotenv/config";
-import express from 'express';
+import express from "express";
 import "reflect-metadata";
-import cors from 'cors';
+import cors from "cors";
 import helmet from "helmet";
-import morgan from 'morgan';
-import config from 'config';
+import morgan from "morgan";
 import { globalResponseFormater } from "@/middleware/response-formater/globalResponseFormater.middleware";
 import { globalErrorHanlder } from "@/middleware/error-handler/globalErrorHanler.middleware";
 import { route } from "@/routes";
 import connection from "@/database/connection.database";
-
-/**
- * Load configs
- */
-const morganFormat = config.get<string>('morganFormat');
-const useHelmet = config.get<boolean>('helmet');
-const corsOption = config.get<cors.CorsOptions>('cors');
-const server_config = config.get<{
-    port: number,
-    host: string
-}>("server");
-const enviroment = config.get<string>("enviroment");
+import { swaggerInit } from "@/utils/documentation/swagger/swagger-init.util";
+import { GlobalConfig } from "@/utils/config/GlobalConfig.util";
 
 /**
  * Express app
@@ -31,18 +20,25 @@ const app = express();
  * Middlewares
  */
 app.use(
-    express.urlencoded({
-      extended: true,
-    })
-  );
-
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.json());
 
-app.use(morgan(morganFormat || "dev"));
+app.use(morgan(GlobalConfig.morgan.format || "dev"));
 
-app.use(cors(corsOption));
-if (useHelmet) {
-    app.use(helmet());
+app.use(cors(GlobalConfig.cors));
+
+if (GlobalConfig.helmet.enable) {
+  app.use(helmet());
+}
+
+/**
+ * Swagger init
+ */
+if (GlobalConfig.swagger.enable) {
+  swaggerInit(app);
 }
 
 /**
@@ -53,7 +49,7 @@ app.use(globalResponseFormater);
 /**
  * Routes
  */
-route(app, '/api/v1');
+route(app, GlobalConfig.server.api_version);
 /**
  * Global error handler
  */
@@ -62,15 +58,15 @@ app.use(globalErrorHanlder);
 /**
  * Server
  */
-const PORT = server_config.port || 3000;
+const PORT = GlobalConfig.server.port || 3000;
 app.listen(PORT, async () => {
   /**
    * Init database connection
    */
-    await connection.authenticate();
-    if (enviroment === "development") {
-      await connection.sync();
-    }
+  await connection.authenticate();
+  if (GlobalConfig.enviroment === "development") {
+    await connection.sync();
+  }
 
-    console.log(`Server is running on port ${PORT} in ${enviroment} mode`);
-})
+  console.log(`Server is running on port ${PORT} in ${GlobalConfig.enviroment} mode`);
+});

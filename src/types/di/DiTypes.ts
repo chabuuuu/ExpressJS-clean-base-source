@@ -2,4 +2,8 @@ export const DiTypes = {
     HUMAN_SERVICE: Symbol.for('HUMAN_SERVICE'),
     HUMAN_REPOSITORY: Symbol.for('HUMAN_REPOSITORY'),
     HUMAN_CONTROLLER: Symbol.for('HUMAN_CONTROLLER'),
+
+    DOG_SERVICE: Symbol.for('DOG_SERVICE'),
+    DOG_REPOSITORY: Symbol.for('DOG_REPOSITORY'),
+    DOG_CONTROLLER: Symbol.for('DOG_CONTROLLER'),
 }

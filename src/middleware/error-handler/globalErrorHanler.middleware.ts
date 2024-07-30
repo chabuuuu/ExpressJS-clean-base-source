@@ -1,8 +1,10 @@
 import { BaseResponse } from "@/dto/response/BaseResponse.dto";
 import { ErrorResponseDTO } from "@/dto/response/ErrorResponse.dto";
+import { ErrorCode } from "@/enums/ErrorCode.enum";
 import BaseException from "@/utils/exception/BaseException";
 import { NextFunction, Request, Response } from "express";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { ValidationError } from "sequelize";
 
 class ErrorResponseHandler {
     private httpStatus: number;
@@ -38,7 +40,7 @@ class ErrorResponseHandler {
         if (error.isJoi){            
             this.httpStatus = StatusCodes.BAD_REQUEST;
             this.httpMessage = ReasonPhrases.BAD_REQUEST;
-            return new ErrorResponseDTO("VALIDATION_ERROR", error.message);
+            return new ErrorResponseDTO(ErrorCode.VALIDATION_ERROR, error.message);
         }
         
         //Error handling for BaseException
@@ -51,7 +53,7 @@ class ErrorResponseHandler {
         
         //Error handling for Error
         if (error instanceof Error)
-            {
+            {                
                 return new ErrorResponseDTO("UNHANDLE_ERROR", error.message); 
             }
 

@@ -1,4 +1,8 @@
-import { DeleteResultType, IBaseRepository, RecordOrderType, UpdateResultType } from "@/repository/interfaces/i.base.repository";
+import { ErrorCode } from "@/enums/ErrorCode.enum";
+import { IBaseRepository } from "@/repository/interfaces/i.base.repository";
+import { DeleteResultType } from "@/types/DeleteResult.type";
+import { RecordOrderType } from "@/types/RecordOrder.type";
+import { UpdateResultType } from "@/types/UpdateResult.type";
 import BaseException from "@/utils/exception/BaseException";
 import { injectable } from "inversify";
 import { Attributes, Identifier, WhereOptions } from "sequelize";
@@ -7,8 +11,20 @@ import { MakeNullishOptional } from "sequelize/types/utils";
 
 @injectable()
 export abstract class BaseRepository<T extends Model, ID extends Identifier | undefined> implements IBaseRepository<T, ID> {
-    
+
     protected BaseModel!: ModelCtor<T>;
+
+    public async findAllWithPaging(pageSize: number, pageNumber: number): Promise<T[]> {
+        try {
+            const result = await this.BaseModel.findAll({
+                limit: pageSize,
+                offset: (pageNumber - 1) * pageSize
+            });
+            return result;
+        } catch (error: any) {
+            throw error;
+        }
+    }
 
     public async create(data: T): Promise<T> {
         try {            
@@ -25,7 +41,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined
             })
             if (!recordToDelete) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToDelete.destroy();
             return {
@@ -51,7 +67,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
         try {
             const recordToUpdate = await this.BaseModel.findByPk(id);
             if (!recordToUpdate) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToUpdate.update(data as MakeNullishOptional<T["_creationAttributes"]>);
             return {
@@ -68,7 +84,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined
             })
             if (!recordToUpdate) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToUpdate.update(updateData as MakeNullishOptional<T["_creationAttributes"]>);
             return ({
@@ -83,7 +99,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
         try {
             const recordToDelete = await this.BaseModel.findByPk(id);
             if (!recordToDelete) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             await recordToDelete.destroy();
             return ({
@@ -100,7 +116,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined
             });
             if (!result) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             return result;
         } catch (error: any) {
@@ -115,7 +131,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
                 include: relations
             });
             if (!result) {
-                throw new BaseException("NF_01", "Record not found", 404);
+                throw new BaseException(ErrorCode.NF_01, "Record not found", 404);
             }
             return result;
         } catch (error: any) {
@@ -144,7 +160,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
             const result = await this.BaseModel.findAll({
                 where: filter as unknown as WhereOptions<Attributes<T>> | undefined,
                 limit: pageSize,
-                offset: pageNumber * pageSize,
+                offset: (pageNumber - 1) * pageSize,
                 order: order ? [[order.column, order.direction]] : undefined
             });
             return result;
@@ -162,7 +178,7 @@ export abstract class BaseRepository<T extends Model, ID extends Identifier | un
         }
     }
 
-    public async findAllWithPaging(order: RecordOrderType, pageSize: number, pageNumber: number): Promise<T[]> {
+    public async findAllWithPagingAndOrder(order: RecordOrderType, pageSize: number, pageNumber: number): Promise<T[]> {
         try {
             const result = await this.BaseModel.findAll({
                 limit: pageSize,

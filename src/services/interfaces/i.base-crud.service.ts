@@ -1,4 +1,8 @@
-import { DeleteResultType, UpdateResultType } from "@/repository/interfaces/i.base.repository";
+import { RequestPageable } from "@/dto/request/RequestPagable.dto";
+import { DeleteResultType } from "@/types/DeleteResult.type";
+import { Page } from "@/types/Page.type";
+import { RecordOrderType } from "@/types/RecordOrder.type";
+import { UpdateResultType } from "@/types/UpdateResult.type";
 
 export interface IBaseCrudService<MODEL, ID> {
     /**
@@ -34,4 +38,20 @@ export interface IBaseCrudService<MODEL, ID> {
      * @returns The deleted record
      */
     deleteById(id: ID): Promise<DeleteResultType>;
+
+    /**
+     * Find all with paging and order
+     * @param requestPageable
+     * @param order
+     * @returns MODEL[]
+     */
+    findAllWithPagingAndOrder(requestPageable : RequestPageable, order: RecordOrderType): Promise<Page<MODEL>>;
+
+    /**
+     * Find all with paging
+     * @param requestPageable
+     * @returns MODEL[]
+     */
+    findAllWithPaging(requestPageable : RequestPageable): Promise<Page<MODEL>>;
+    
 }

@@ -11,7 +11,11 @@
         "methods": ["GET", "POST", "PUT", "DELETE", "UPDATE"],
         "allowedHeaders": ["X-Requested-With", "X-HTTP-Method-Override", "Content-Type", "Accept", "Observe", "Authorization"]
     },
-    "helmet": true,
+    "helmet": {
+        "enable": true
+    },
     "enviroment": "production",
-    "swagger": true
+    "swagger": {
+        "enable": true
+    }
 }

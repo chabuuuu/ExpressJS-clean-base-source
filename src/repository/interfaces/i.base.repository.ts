@@ -1,16 +1,6 @@
-
-export type RecordOrderType = {
-    column: string;
-    direction: 'ASC' | 'DESC';
-}
-
-export type UpdateResultType = {
-    message: string;
-}
-
-export type DeleteResultType = {
-    message: string;
-}
+import { DeleteResultType } from "@/types/DeleteResult.type";
+import { RecordOrderType } from "@/types/RecordOrder.type";
+import { UpdateResultType } from "@/types/UpdateResult.type";
 
 export interface IBaseRepository<T, ID> {
     /**
@@ -99,7 +89,14 @@ export interface IBaseRepository<T, ID> {
      * @param pageSize 
      * @param pageNumber 
      */
-    findAllWithPaging(order: RecordOrderType, pageSize: number, pageNumber: number): Promise<T[]>;
+    findAllWithPagingAndOrder(order: RecordOrderType, pageSize: number, pageNumber: number): Promise<T[]>;
+
+    /**
+     * Find all with paging
+     * @param pageSize 
+     * @param pageNumber 
+     */
+    findAllWithPaging(pageSize: number, pageNumber: number): Promise<T[]>;
     
     /**
      * Check if a record exists with the given filter

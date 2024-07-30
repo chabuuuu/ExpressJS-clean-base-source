@@ -4,7 +4,7 @@ import { IHumanRepository } from "@/repository/interfaces/i.human.repository";
 import { injectable } from "inversify";
 
 @injectable()
-export class HumanRepository extends BaseRepository<Human, string> implements IHumanRepository<Human, string> {
+export class HumanRepository extends BaseRepository<Human, number> implements IHumanRepository<Human, number> {
     protected Model = Human;
     constructor() {
         super();
