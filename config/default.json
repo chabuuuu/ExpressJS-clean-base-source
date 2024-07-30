@@ -1,7 +1,8 @@
 {
     "server": {
         "port":  3000,
-        "host": "localhost"
+        "host": "localhost",
+        "api_version": "/api/v1"
     },
 
     "request-limit": {
@@ -14,11 +15,18 @@
         "allowedHeaders": ["X-Requested-With", "X-HTTP-Method-Override", "Content-Type", "Accept", "Observe", "Authorization"]
     },
 
-    "helmet": false,
+    "helmet": {
+        "enable": false
+    },
 
     "enviroment": "default",
 
-    "morganFormat": "dev",
+    "morgan" : 
+    {
+        "format": "dev"
+    },
 
-    "API_VERSION": "/api/v1"
+    "swagger": {
+        "enable": true
+    }
 }
