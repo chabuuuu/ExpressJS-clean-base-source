@@ -10,6 +10,7 @@ import { route } from "@/routes";
 import connection from "@/database/connection.database";
 import { swaggerInit } from "@/utils/documentation/swagger/swagger-init.util";
 import { GlobalConfig } from "@/utils/config/GlobalConfig.util";
+import { endRequestPipelineHandler } from "@/middleware/end-request-pipline-handler.middleware";
 
 /**
  * Express app
@@ -56,6 +57,11 @@ route(app, GlobalConfig.server.api_version);
 app.use(globalErrorHanlder);
 
 /**
+ * End request pipeline handler
+ */
+app.use(endRequestPipelineHandler);
+
+/**
  * Server
  */
 const PORT = GlobalConfig.server.port || 3000;
@@ -68,5 +74,7 @@ app.listen(PORT, async () => {
     await connection.sync();
   }
 
-  console.log(`Server is running on port ${PORT} in ${GlobalConfig.enviroment} mode`);
+  console.log(
+    `Server is running on port ${PORT} in ${GlobalConfig.enviroment} mode`
+  );
 });

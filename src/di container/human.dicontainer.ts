@@ -1,5 +1,7 @@
 import { HumanController } from "@/controllers/human.controller";
 import { IHumanController } from "@/controllers/interfaces/i.human.controller";
+import { HumanRedisHelper } from "@/helpers/redis-helper/human-redis.helper";
+import { IHumanRedisHelper } from "@/helpers/redis-helper/interfaces/i.human-redis.helper";
 import { Human } from "@/models/humans.model";
 import { HumanRepository } from "@/repository/human.repository";
 import { IHumanRepository } from "@/repository/interfaces/i.human.repository";
@@ -11,14 +13,25 @@ import { Container } from "inversify";
 const humanDiContainer = new Container();
 
 // Binding
-humanDiContainer.bind<IHumanRepository<Human, number>>(DiTypes.HUMAN_REPOSITORY).to(HumanRepository);
+humanDiContainer
+  .bind<IHumanRepository<Human, number>>(DiTypes.HUMAN_REPOSITORY)
+  .to(HumanRepository);
 humanDiContainer.bind<IHumanService>(DiTypes.HUMAN_SERVICE).to(HumanService);
-humanDiContainer.bind<IHumanController>(DiTypes.HUMAN_CONTROLLER).to(HumanController);
+humanDiContainer
+  .bind<IHumanController>(DiTypes.HUMAN_CONTROLLER)
+  .to(HumanController);
+humanDiContainer
+  .bind<IHumanRedisHelper>(DiTypes.HUMAN_REDIS_HELPER)
+  .to(HumanRedisHelper);
 
 // Resolve
-const humanController = humanDiContainer.get<IHumanController>(DiTypes.HUMAN_CONTROLLER);
+const humanController = humanDiContainer.get<IHumanController>(
+  DiTypes.HUMAN_CONTROLLER
+);
 const humanService = humanDiContainer.get<IHumanService>(DiTypes.HUMAN_SERVICE);
-const humanRepository = humanDiContainer.get<IHumanRepository<Human, number>>(DiTypes.HUMAN_REPOSITORY);
+const humanRepository = humanDiContainer.get<IHumanRepository<Human, number>>(
+  DiTypes.HUMAN_REPOSITORY
+);
 
 // Export module
 export { humanController, humanRepository, humanService };

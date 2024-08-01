@@ -8,6 +8,7 @@ import { LoginHumanResponseDto } from "@/dto/human/LoginHumanResponseDto";
 import { RequestPageable } from "@/dto/request/RequestPagable.dto";
 import { BaseResponse } from "@/dto/response/BaseResponse.dto";
 import { PagingResponse } from "@/dto/response/PagingResponse.dto";
+import { IHumanRedisHelper } from "@/helpers/redis-helper/interfaces/i.human-redis.helper";
 import { Human } from "@/models/humans.model";
 import { IHumanService } from "@/services/interfaces/i.human.service";
 import { DiTypes } from "@/types/di/DiTypes";
@@ -25,9 +26,14 @@ import { inject, injectable } from "inversify";
 @injectable()
 export class HumanController implements IHumanController {
   protected humanService: IHumanService;
+  protected humanRedisHelper: IHumanRedisHelper;
 
-  constructor(@inject(DiTypes.HUMAN_SERVICE) humanService: IHumanService) {
+  constructor(
+    @inject(DiTypes.HUMAN_SERVICE) humanService: IHumanService,
+    @inject(DiTypes.HUMAN_REDIS_HELPER) humanRedisHelper: IHumanRedisHelper
+  ) {
     this.humanService = humanService;
+    this.humanRedisHelper = humanRedisHelper;
   }
 
   /**
@@ -131,7 +137,7 @@ export class HumanController implements IHumanController {
    */
   async getHumanListPaging(
     req: Request<null, null, null, RequestPageable>,
-    res: Response<BaseResponse<PagingResponse<GetHumanResponseDto>>>,
+    res: Response<BaseResponse<PagingResponse<GetHumanResponseDto>> | JSON>,
     next: NextFunction
   ): Promise<void> {
     try {
@@ -139,18 +145,30 @@ export class HumanController implements IHumanController {
       const { page, rpp } = req.query;
       const requestPageable = new RequestPageable(page, rpp);
 
+      //Check data from cache
+      const cacheData = await this.humanRedisHelper.getCachePaging(
+        requestPageable
+      );
+      if (cacheData) {
+        res.json(cacheData);
+        return;
+      }
+
       //Find all with paging
       let result = await this.humanService.findAllWithPaging(requestPageable);
 
       //Convert result to DTO
       const convertedResult = convertToPageDto(GetHumanResponseDto, result);
-      
+
       //Format response
       const formatedReponse =
         new ResponseGenerator<GetHumanResponseDto>().pagingSuccessResponse(
           convertedResult,
           requestPageable
         );
+
+      //Set cache
+      this.humanRedisHelper.setCachePaging(formatedReponse, requestPageable);
 
       res.json(formatedReponse);
     } catch (error: any) {
