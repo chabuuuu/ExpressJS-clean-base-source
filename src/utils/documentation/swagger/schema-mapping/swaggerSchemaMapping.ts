@@ -46,10 +46,10 @@ export const swaggerSchemaMapping = {
   CreateNewDogResponseDto: swaggerSchemaGenerator.generateCreateSuccessResponse(
     CreateNewDogResponseDto
   ),
-  CreateNewDog_VALIDATION_ERROR: swaggerSchemaGenerator.generateErrorResponse(
-    "Validation error",
-    ErrorCode.VALIDATION_ERROR,
-    StatusCodes.BAD_REQUEST,
-    ReasonPhrases.BAD_REQUEST
-  ),
+  CreateNewDog_VALIDATION_ERROR: swaggerSchemaGenerator.generateErrorResponse({
+    message: "Validation error",
+    code: ErrorCode.VALIDATION_ERROR,
+    httpStatusCode: StatusCodes.BAD_REQUEST,
+    httpStatusMessage: ReasonPhrases.BAD_REQUEST,
+  }),
 };
