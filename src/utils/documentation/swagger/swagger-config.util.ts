@@ -3,7 +3,7 @@ import swaggerUi from "swagger-ui-express";
 import { SwaggerTheme, SwaggerThemeNameEnum } from "swagger-themes";
 const theme = new SwaggerTheme();
 import express from "express";
-import { swaggerSchemaMapping } from "@/utils/documentation/swagger/swagger-schema-mapping.util";
+import { swaggerSchemaMapping } from "@/utils/documentation/swagger/schema-mapping/swaggerSchemaMapping";
 import { GlobalConfig } from "@/utils/config/GlobalConfig.util";
 const options = {
   definition: {

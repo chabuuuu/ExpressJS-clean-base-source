@@ -36,6 +36,7 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "class-to-swagger-schema": "^1.0.4",
     "class-transformer": "^0.5.1",
     "class-validator-jsonschema": "^5.0.1",
     "config": "^3.3.12",

@@ -4,7 +4,6 @@ import { RedisHelper } from "@/helpers/redis-helper/redis.helper";
 import { deleteRedisKeyMatch } from "@/utils/redis/redis-delete-key-match";
 import redisInstance from "@/utils/redis/redis.instance.utils";
 import { injectable } from "inversify";
-import { Json } from "sequelize/types/utils";
 
 @injectable()
 export class HumanRedisHelper extends RedisHelper implements IHumanRedisHelper {

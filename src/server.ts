@@ -8,7 +8,7 @@ import { globalResponseFormater } from "@/middleware/response-formater/globalRes
 import { globalErrorHanlder } from "@/middleware/error-handler/globalErrorHanler.middleware";
 import { route } from "@/routes";
 import connection from "@/database/connection.database";
-import { swaggerInit } from "@/utils/documentation/swagger/swagger-init.util";
+import { swaggerInit } from "@/utils/documentation/swagger/swagger-config.util";
 import { GlobalConfig } from "@/utils/config/GlobalConfig.util";
 import { endRequestPipelineHandler } from "@/middleware/end-request-pipline-handler.middleware";
 

@@ -1,15 +1,14 @@
-import { PropertyDescription } from "@/decorators/PropertyDescription.decorator";
-import { PropertyExample } from "@/decorators/PropertyExample.decorator";
+import { SwaggerExample, SwaggerProperty } from "class-to-swagger-schema";
 import { Expose } from "class-transformer";
 
 export class CreateNewDogRequestDto {
   @Expose()
-  @PropertyDescription("Dog's name")
-  @PropertyExample("Jerry")
+  @SwaggerProperty("Dog's name")
+  @SwaggerExample("Jerry")
   name!: string;
 
   @Expose()
-  @PropertyDescription("Dog's breed")
-  @PropertyExample("Husky")
+  @SwaggerProperty("Dog's breed")
+  @SwaggerExample("Husky")
   breed!: string;
 }
