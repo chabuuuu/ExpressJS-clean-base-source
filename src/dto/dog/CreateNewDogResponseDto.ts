@@ -1,25 +1,24 @@
-import { PropertyDescription } from "@/decorators/PropertyDescription.decorator";
-import { PropertyExample } from "@/decorators/PropertyExample.decorator";
+import { SwaggerExample, SwaggerProperty } from "class-to-swagger-schema";
 import { Expose } from "class-transformer";
 
 export class CreateNewDogResponseDto {
   @Expose()
-  @PropertyExample("1")
-  @PropertyDescription("Dog's id")
+  @SwaggerExample("1")
+  @SwaggerProperty("Dog's id")
   id!: string;
 
   @Expose()
-  @PropertyExample("Jerry")
-  @PropertyDescription("Dog's name")
+  @SwaggerExample("Jerry")
+  @SwaggerProperty("Dog's name")
   name!: string;
 
   @Expose()
-  @PropertyExample("Husky")
-  @PropertyDescription("Dog's breed")
+  @SwaggerExample("Husky")
+  @SwaggerProperty("Dog's breed")
   breed!: string;
 
   @Expose()
-  @PropertyExample("true")
-  @PropertyDescription("The dog is good boy or not")
+  @SwaggerExample("true")
+  @SwaggerProperty("The dog is good boy or not")
   isGoodBoy!: boolean;
 }
