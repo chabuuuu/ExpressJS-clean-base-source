@@ -1,30 +1,30 @@
 export const findOneResponseSchema = {
-  type: "object",
+  type: 'object',
   properties: {
     httpStatus: {
-      type: "integer",
-      description: "HTTP status code",
-      example: "200",
+      type: 'integer',
+      description: 'HTTP status code',
+      example: '200'
     },
     httpMessage: {
-      type: "string",
-      description: "HTTP status message",
-      example: "OK",
+      type: 'string',
+      description: 'HTTP status message',
+      example: 'OK'
     },
     error: {
-      type: "object",
-      description: "Error response",
-      example: null,
+      type: 'object',
+      description: 'Error response',
+      example: null
     },
     data: {
-      type: "object",
-      description: "Data response",
+      type: 'object',
+      description: 'Data response',
       properties: {
         /**
          ** Add this if you want to inject your class here
          */
-        injectClassHere: true,
-      },
-    },
-  },
+        injectClassHere: true
+      }
+    }
+  }
 };

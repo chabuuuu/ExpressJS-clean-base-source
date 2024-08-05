@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && tsc-alias",
+    "build": "rimraf ./dist && tsc && tsc-alias",
     "start:dev": "NODE_ENV=development nodemon --exec npx ts-node -r tsconfig-paths/register ./src/server.ts",
     "start:prod": "NODE_ENV=production node ./dist/server.js",
     "migrate:create": "cross-env NAME=$NAME node ./src/database/migrate create --name $NAME --folder src/database/migrations",
     "migrate:up": "node -r tsconfig-paths/register ./src/database/migrate up",
     "migrate:down": "node -r tsconfig-paths/register ./src/database/migrate down",
     "migrate:revert-all": "node ./src/database/migrate down --to 0",
-    "utils:generate-key": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\""
+    "utils:generate-key": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -28,15 +32,23 @@
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
     "@types/validator": "^13.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
     "sequelize-cli": "^6.6.2",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "class-to-swagger-schema": "^1.0.4",
+    "class-to-swagger-schema": "^1.0.9",
     "class-transformer": "^0.5.1",
     "class-validator-jsonschema": "^5.0.1",
     "config": "^3.3.12",
@@ -59,7 +71,6 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-themes": "^1.4.3",
     "swagger-ui-express": "^5.0.1",
-    "tsconfig-paths": "^4.2.0",
     "umzug": "^3.8.1"
   }
 }

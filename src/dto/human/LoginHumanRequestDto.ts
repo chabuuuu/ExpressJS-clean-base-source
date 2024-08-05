@@ -1,9 +1,9 @@
-import { Expose } from "class-transformer";
+import { Expose } from 'class-transformer';
 
 export class LoginHumanRequestDto {
-    @Expose()
-    username!: string;
+  @Expose()
+  username!: string;
 
-    @Expose()
-    password!: string;
+  @Expose()
+  password!: string;
 }

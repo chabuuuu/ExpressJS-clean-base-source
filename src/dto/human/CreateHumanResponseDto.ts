@@ -1,16 +1,15 @@
-import { Expose } from "class-transformer";
+import { Expose } from 'class-transformer';
 
 export class CreateHumanResponseDto {
+  @Expose()
+  id!: string;
 
-    @Expose()
-    id!: string;
+  @Expose()
+  role!: string;
 
-    @Expose()
-    role!: string;
+  @Expose()
+  name!: string;
 
-    @Expose()
-    name!: string;
-
-    @Expose()
-    username!: string;
+  @Expose()
+  username!: string;
 }

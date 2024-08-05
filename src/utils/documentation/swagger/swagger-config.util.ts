@@ -1,40 +1,37 @@
-import swaggerJsdoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
-import { SwaggerTheme, SwaggerThemeNameEnum } from "swagger-themes";
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 const theme = new SwaggerTheme();
-import express from "express";
-import { swaggerSchemaMapping } from "@/utils/documentation/swagger/schema-mapping/swaggerSchemaMapping";
-import { GlobalConfig } from "@/utils/config/GlobalConfig.util";
+import express from 'express';
+import { swaggerSchemaMapping } from '@/utils/documentation/swagger/schema-mapping/swaggerSchemaMapping';
+import { GlobalConfig } from '@/utils/config/GlobalConfig.util';
 const options = {
   definition: {
-    openapi: "3.1.0",
+    openapi: '3.1.0',
     info: {
-      title: "ExpressJS Super Clean Base Source API Documentation",
-      version: "0.1.0",
-      description:
-        "This is API application made with Express and documented with Swagger",
+      title: 'ExpressJS Super Clean Base Source API Documentation',
+      version: '0.1.0',
+      description: 'This is API application made with Express and documented with Swagger',
       license: {
-        name: "MIT",
-        url: "https://spdx.org/licenses/MIT.html",
+        name: 'MIT',
+        url: 'https://spdx.org/licenses/MIT.html'
       },
       contact: {
-        name: "Thinh Ha",
-        email: "haphuthinh332004@gmail.com",
-      },
+        name: 'Thinh Ha',
+        email: 'haphuthinh332004@gmail.com'
+      }
     },
     servers: [
       {
-        url: `http://${GlobalConfig.server.host}:${
-          GlobalConfig.server.port || 3000
-        }${GlobalConfig.server.api_version}`,
-        description: "Local server",
-      },
+        url: `http://${GlobalConfig.server.host}:${GlobalConfig.server.port || 3000}${GlobalConfig.server.api_version}`,
+        description: 'Local server'
+      }
     ],
     components: {
-      schemas: swaggerSchemaMapping,
-    },
+      schemas: swaggerSchemaMapping
+    }
   },
-  apis: ["./src/controllers/*.ts", "./src/dto/**/*.ts"],
+  apis: ['./src/controllers/*.ts', './src/dto/**/*.ts']
 };
 
 export function swaggerInit(app: express.Application) {
@@ -46,7 +43,7 @@ export function swaggerInit(app: express.Application) {
     swaggerUi.serve,
     swaggerUi.setup(specs, {
       explorer: true,
-      customCss: theme.getBuffer(SwaggerThemeNameEnum.FLATTOP),
+      customCss: theme.getBuffer(SwaggerThemeNameEnum.FLATTOP)
     })
   );
   console.log(

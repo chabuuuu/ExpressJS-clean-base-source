@@ -1,9 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-export function endRequestPipelineHandler(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function endRequestPipelineHandler(req: Request, res: Response, next: NextFunction) {
   res.end();
 }

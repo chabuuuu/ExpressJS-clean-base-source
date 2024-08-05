@@ -1,4 +1,4 @@
-import { CacheSchema } from "@/enums/CacheSchema.enum";
+import { CacheSchema } from '@/enums/CacheSchema.enum';
 
 /**
  ** A helper that helps to interact with the redis cache

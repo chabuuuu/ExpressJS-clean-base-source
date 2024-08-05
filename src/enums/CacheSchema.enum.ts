@@ -1,5 +1,5 @@
 export enum CacheSchema {
-  HUMANS = "humans:",
-  HUMANS_PAGING = "humans:paging:",
-  DOGS = "dogs:",
+  HUMANS = 'humans:',
+  HUMANS_PAGING = 'humans:paging:',
+  DOGS = 'dogs:'
 }

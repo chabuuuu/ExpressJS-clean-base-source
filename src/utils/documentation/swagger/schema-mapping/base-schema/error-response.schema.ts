@@ -1,40 +1,40 @@
 export const errorResponseSchema = {
-  type: "object",
+  type: 'object',
   properties: {
     httpStatus: {
-      type: "integer",
-      description: "HTTP status code",
+      type: 'integer',
+      description: 'HTTP status code',
       example: {
         /**
          ** Add this if you want to inject http status example here
          */
-        injectHttpStatusExample: true,
-      },
+        injectHttpStatusExample: true
+      }
     },
     httpMessage: {
-      type: "string",
-      description: "HTTP status message",
+      type: 'string',
+      description: 'HTTP status message',
       example: {
         /**
          ** Add this if you want to inject http message example here
          */
-        injectHttpMessageExample: true,
-      },
+        injectHttpMessageExample: true
+      }
     },
     error: {
-      type: "object",
-      description: "Error response",
+      type: 'object',
+      description: 'Error response',
       properties: {
         /**
          ** Add this if you want to inject your class here
          */
-        injectClassHere: true,
-      },
+        injectClassHere: true
+      }
     },
     data: {
-      type: "object",
-      description: "Data response",
-      example: null,
-    },
-  },
+      type: 'object',
+      description: 'Data response',
+      example: null
+    }
+  }
 };

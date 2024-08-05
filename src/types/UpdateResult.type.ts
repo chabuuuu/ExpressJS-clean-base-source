@@ -1,3 +1,3 @@
 export type UpdateResultType = {
-    message: string;
-}
+  message: string;
+};

@@ -1,5 +1,5 @@
-import { ClassConstructor, plainToClass, plainToInstance } from "class-transformer";
+import { ClassConstructor, plainToClass, plainToInstance } from 'class-transformer';
 
-export function convertToDto<DTO_TYPE> (DTO: ClassConstructor<DTO_TYPE>, data: any): DTO_TYPE {
-    return plainToInstance(DTO, data, { excludeExtraneousValues: true });
+export function convertToDto<DTO_TYPE>(DTO: ClassConstructor<DTO_TYPE>, data: any): DTO_TYPE {
+  return plainToInstance(DTO, data, { excludeExtraneousValues: true });
 }

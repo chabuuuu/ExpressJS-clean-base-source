@@ -1,6 +1,6 @@
-import { CacheSchema } from "@/enums/CacheSchema.enum";
-import { IRedisHelper } from "@/helpers/redis-helper/interfaces/i.redis.helper";
-import { injectable } from "inversify";
+import { CacheSchema } from '@/enums/CacheSchema.enum';
+import { IRedisHelper } from '@/helpers/redis-helper/interfaces/i.redis.helper';
+import { injectable } from 'inversify';
 
 @injectable()
 export abstract class RedisHelper implements IRedisHelper {

@@ -1,4 +1,4 @@
-import { Redis } from "ioredis";
+import { Redis } from 'ioredis';
 
 class RedisSingleton {
   private static instance: Redis;
@@ -7,7 +7,7 @@ class RedisSingleton {
 
   public static getInstance(): Redis {
     if (!RedisSingleton.instance) {
-      const url = process.env.REDIS_URL || "redis://localhost:6379";
+      const url = process.env.REDIS_URL || 'redis://localhost:6379';
       RedisSingleton.instance = new Redis(url);
     }
     return RedisSingleton.instance;

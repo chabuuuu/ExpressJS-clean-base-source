@@ -1,15 +1,15 @@
-import { Expose } from "class-transformer";
+import { Expose } from 'class-transformer';
 
 export class CreateHumanRequestDto {
-    @Expose()
-    name!: string;
+  @Expose()
+  name!: string;
 
-    @Expose()
-    username!: string;
+  @Expose()
+  username!: string;
 
-    @Expose()
-    password!: string;
+  @Expose()
+  password!: string;
 
-    @Expose()
-    role!: string;
+  @Expose()
+  role!: string;
 }

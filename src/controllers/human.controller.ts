@@ -1,27 +1,24 @@
-import { IHumanController } from "@/controllers/interfaces/i.human.controller";
-import { CreateHumanRequestDto } from "@/dto/human/CreateHumanRequestDto";
-import { CreateHumanResponseDto } from "@/dto/human/CreateHumanResponseDto";
-import { GetHumanDetailResponseDTO } from "@/dto/human/GetHumanDetailResponseDto";
-import { GetHumanResponseDto } from "@/dto/human/GetHumanResponseDto";
-import { LoginHumanRequestDto } from "@/dto/human/LoginHumanRequestDto";
-import { LoginHumanResponseDto } from "@/dto/human/LoginHumanResponseDto";
-import { RequestPageable } from "@/dto/request/RequestPagable.dto";
-import { BaseResponse } from "@/dto/response/BaseResponse.dto";
-import { PagingResponse } from "@/dto/response/PagingResponse.dto";
-import { IHumanRedisHelper } from "@/helpers/redis-helper/interfaces/i.human-redis.helper";
-import { Human } from "@/models/humans.model";
-import { IHumanService } from "@/services/interfaces/i.human.service";
-import { DiTypes } from "@/types/di/DiTypes";
-import { Page } from "@/types/Page.type";
-import { convertToDto } from "@/utils/dto-convert/convert-to-dto";
-import { convertToPageDto } from "@/utils/dto-convert/convert-to-page-dto";
-import ResponseGenerator from "@/utils/response/ResponseGenerator";
-import {
-  createHumanValidateSchema,
-  loginHumanValidateSchema,
-} from "@/validation/human.validation";
-import { NextFunction, Request, Response } from "express";
-import { inject, injectable } from "inversify";
+import { IHumanController } from '@/controllers/interfaces/i.human.controller';
+import { CreateHumanRequestDto } from '@/dto/human/CreateHumanRequestDto';
+import { CreateHumanResponseDto } from '@/dto/human/CreateHumanResponseDto';
+import { GetHumanDetailResponseDTO } from '@/dto/human/GetHumanDetailResponseDto';
+import { GetHumanResponseDto } from '@/dto/human/GetHumanResponseDto';
+import { LoginHumanRequestDto } from '@/dto/human/LoginHumanRequestDto';
+import { LoginHumanResponseDto } from '@/dto/human/LoginHumanResponseDto';
+import { RequestPageable } from '@/dto/request/RequestPagable.dto';
+import { BaseResponse } from '@/dto/response/BaseResponse.dto';
+import { PagingResponse } from '@/dto/response/PagingResponse.dto';
+import { IHumanRedisHelper } from '@/helpers/redis-helper/interfaces/i.human-redis.helper';
+import { Human } from '@/models/humans.model';
+import { IHumanService } from '@/services/interfaces/i.human.service';
+import { DiTypes } from '@/types/di/DiTypes';
+import { Page } from '@/types/Page.type';
+import { convertToDto } from '@/utils/dto-convert/convert-to-dto';
+import { convertToPageDto } from '@/utils/dto-convert/convert-to-page-dto';
+import ResponseGenerator from '@/utils/response/ResponseGenerator';
+import { createHumanValidateSchema, loginHumanValidateSchema } from '@/validation/human.validation';
+import { NextFunction, Request, Response } from 'express';
+import { inject, injectable } from 'inversify';
 
 @injectable()
 export class HumanController implements IHumanController {
@@ -56,11 +53,7 @@ export class HumanController implements IHumanController {
 
       const result = await this.humanService.humanLogin(username, password);
 
-      res.json(
-        new ResponseGenerator<LoginHumanResponseDto>().findOneSuccessResponse(
-          result
-        )
-      );
+      res.json(new ResponseGenerator<LoginHumanResponseDto>().findOneSuccessResponse(result));
     } catch (error) {
       next(error);
     }
@@ -92,10 +85,9 @@ export class HumanController implements IHumanController {
       const responseDtoConverted = convertToDto(CreateHumanResponseDto, result);
 
       //Format response
-      const formatedReponse =
-        new ResponseGenerator<CreateHumanResponseDto>().createSuccessResponse(
-          responseDtoConverted
-        );
+      const formatedReponse = new ResponseGenerator<CreateHumanResponseDto>().createSuccessResponse(
+        responseDtoConverted
+      );
 
       res.json(formatedReponse);
     } catch (error: any) {
@@ -116,14 +108,8 @@ export class HumanController implements IHumanController {
   ): Promise<void> {
     try {
       const humanId = req.params.humanId;
-      const result = await this.humanService.getHumanDetailById(
-        Number(humanId)
-      );
-      res.json(
-        new ResponseGenerator<GetHumanDetailResponseDTO>().findOneSuccessResponse(
-          result
-        )
-      );
+      const result = await this.humanService.getHumanDetailById(Number(humanId));
+      res.json(new ResponseGenerator<GetHumanDetailResponseDTO>().findOneSuccessResponse(result));
     } catch (error: any) {
       next(error);
     }
@@ -146,26 +132,23 @@ export class HumanController implements IHumanController {
       const requestPageable = new RequestPageable(page, rpp);
 
       //Check data from cache
-      const cacheData = await this.humanRedisHelper.getCachePaging(
-        requestPageable
-      );
+      const cacheData = await this.humanRedisHelper.getCachePaging(requestPageable);
       if (cacheData) {
         res.json(cacheData);
         return;
       }
 
       //Find all with paging
-      let result = await this.humanService.findAllWithPaging(requestPageable);
+      const result = await this.humanService.findAllWithPaging(requestPageable);
 
       //Convert result to DTO
       const convertedResult = convertToPageDto(GetHumanResponseDto, result);
 
       //Format response
-      const formatedReponse =
-        new ResponseGenerator<GetHumanResponseDto>().pagingSuccessResponse(
-          convertedResult,
-          requestPageable
-        );
+      const formatedReponse = new ResponseGenerator<GetHumanResponseDto>().pagingSuccessResponse(
+        convertedResult,
+        requestPageable
+      );
 
       //Set cache
       this.humanRedisHelper.setCachePaging(formatedReponse, requestPageable);
