@@ -6,22 +6,22 @@ Very clean base source of NodeJS (Express) using DI with Inversify + Service - R
 
 ## What this base source including?
 
-- The controller-service-repository structure
-- Dependency injection with inversify
-- Typescript ORM with sequelize-typescript
-- Database migration with umzug
-- Redis with ioredis (including some base helper for caching)
-- DTOs using class-transformer
-- Request schema valitate using Joi
+- The controller-service-repository structure: [What is Controller-Service-Repotiory structure](https://tom-collings.medium.com/controller-service-repository-16e29a4684e5)
+- Dependency injection with [inversify](https://inversify.io/)
+- Typescript ORM with [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript) which based on [SequelizeORM](https://sequelize.org/docs/v6/other-topics/typescript/)
+- Database migration with [umzug](https://www.npmjs.com/package/umzug)
+- Redis with [ioredis](https://www.npmjs.com/package/ioredis) (including some base helper for caching)
+- DTOs using [class-transformer](https://www.npmjs.com/package/class-transformer)
+- Request schema valitate using [Joi](https://www.npmjs.com/package/joi)
 - Microservice message handler for Kafka, RabbitMQ,...
 - Global response formatter
 - Global error handler
 - Base repository + base service
-- Swagger API Documentation: auto mapping Typescript DTO to swagger schema using class-to-swagger-schema
+- Swagger API Documentation: auto mapping Typescript DTO to swagger schema using [class-to-swagger-schema](https://www.npmjs.com/package/class-to-swagger-schema)
 - API security using JWT + RBAC
-- Linter with eslint
-- Format source with prettier
-- Storing application config with config
+- Linter with [eslint](https://www.npmjs.com/package/eslint)
+- Format source with [prettier](https://www.npmjs.com/package/prettier)
+- Manage application config with [config](https://www.npmjs.com/package/config)
 - Dockerize with default Dockerfile config
 
 ## Structure
