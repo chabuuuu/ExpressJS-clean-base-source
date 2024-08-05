@@ -1,4 +1,5 @@
-import { Dog } from "@/models/dogs.model";
-import { IBaseCrudService } from "@/services/interfaces/i.base-crud.service";
+import { Dog } from '@/models/dogs.model';
+import { IBaseCrudService } from '@/services/interfaces/i.base-crud.service';
 
-export interface IDogService extends IBaseCrudService<Dog, number>{}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface IDogService extends IBaseCrudService<Dog, number> {}

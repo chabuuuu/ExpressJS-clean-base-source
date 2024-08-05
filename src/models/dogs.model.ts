@@ -1,27 +1,27 @@
-import { Table, Model, Column, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
-import { Human } from "./humans.model";
+import { Table, Model, Column, DataType, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import { Human } from './humans.model';
 
 @Table({
   timestamps: false,
-  tableName: "dogs",
+  tableName: 'dogs'
 })
 export class Dog extends Model {
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: false
   })
   name!: string;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: false
   })
   breed!: string;
 
   @Column({
     type: DataType.BOOLEAN,
     allowNull: true,
-    defaultValue: true,
+    defaultValue: true
   })
   isGoodBoy!: boolean;
 

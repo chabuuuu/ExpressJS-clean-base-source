@@ -1,3 +1,6 @@
-import { IBaseRepository } from "@/repository/interfaces/i.base.repository";
+import { IBaseRepository } from '@/repository/interfaces/i.base.repository';
 
-export interface IDogRepository<T, ID> extends IBaseRepository<T, ID>{}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface IDogRepository<T, ID> extends IBaseRepository<T, ID> {
+  // Add specific methods for IDogRepository here
+}

@@ -1,39 +1,38 @@
-import { Table, Model, Column, DataType, PrimaryKey, AutoIncrement, HasMany, Unique } from "sequelize-typescript";
-import { Dog } from "./dogs.model";
-import { RolesEnum } from "@/enums/Roles.enum";
+import { Table, Model, Column, DataType, PrimaryKey, AutoIncrement, HasMany, Unique } from 'sequelize-typescript';
+import { Dog } from './dogs.model';
+import { RolesEnum } from '@/enums/Roles.enum';
 
 @Table({
   timestamps: false,
-  tableName: "humans",
+  tableName: 'humans'
 })
 export class Human extends Model {
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: false
   })
   name!: string;
 
   @Column({
     type: DataType.ENUM(RolesEnum.CUSTOMER, RolesEnum.SHOP_OWNER),
     defaultValue: RolesEnum.CUSTOMER,
-    allowNull: false,
+    allowNull: false
   })
   role!: RolesEnum;
 
   @Unique
   @Column({
     type: DataType.STRING(50),
-    allowNull: false,
+    allowNull: false
   })
   username!: string;
 
   @Column({
     type: DataType.STRING(70),
-    allowNull: false,
+    allowNull: false
   })
   password!: string;
 
   @HasMany(() => Dog)
-  dogs!: Dog[]
-
+  dogs!: Dog[];
 }

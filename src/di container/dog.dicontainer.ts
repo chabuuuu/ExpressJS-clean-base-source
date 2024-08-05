@@ -1,12 +1,12 @@
-import { DogController } from "@/controllers/dog.controller";
-import { IDogController } from "@/controllers/interfaces/i.dog.controller";
-import { Dog } from "@/models/dogs.model";
-import { DogRepository } from "@/repository/dog.repository";
-import { IDogRepository } from "@/repository/interfaces/i.dog.repository";
-import { DogService } from "@/services/dog.service";
-import { IDogService } from "@/services/interfaces/i.dog.service";
-import { DiTypes } from "@/types/di/DiTypes";
-import { Container } from "inversify";
+import { DogController } from '@/controllers/dog.controller';
+import { IDogController } from '@/controllers/interfaces/i.dog.controller';
+import { Dog } from '@/models/dogs.model';
+import { DogRepository } from '@/repository/dog.repository';
+import { IDogRepository } from '@/repository/interfaces/i.dog.repository';
+import { DogService } from '@/services/dog.service';
+import { IDogService } from '@/services/interfaces/i.dog.service';
+import { DiTypes } from '@/types/di/DiTypes';
+import { Container } from 'inversify';
 
 const dogDiContainer = new Container();
 

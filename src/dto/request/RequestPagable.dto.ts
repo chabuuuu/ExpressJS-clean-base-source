@@ -1,13 +1,13 @@
 export class RequestPageable {
-    public page = 1;
-    public rpp = 10;
+  public page = 1;
+  public rpp = 10;
 
-    constructor(page? : number | undefined, rpp? : number | undefined) {
-        if (page){
-            this.page = Number(page);
-        }
-        if (rpp){
-            this.rpp = Number(rpp);
-        }
+  constructor(page?: number | undefined, rpp?: number | undefined) {
+    if (page) {
+      this.page = Number(page);
     }
+    if (rpp) {
+      this.rpp = Number(rpp);
+    }
+  }
 }

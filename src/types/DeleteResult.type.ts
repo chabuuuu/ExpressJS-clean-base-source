@@ -1,3 +1,3 @@
 export type DeleteResultType = {
-    message: string;
-}
+  message: string;
+};
