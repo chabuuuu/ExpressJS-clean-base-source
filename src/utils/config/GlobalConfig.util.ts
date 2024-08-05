@@ -29,4 +29,9 @@ export class GlobalConfig {
   public static readonly swagger = config.get<{
     enable: boolean;
   }>('swagger');
+
+  //Database config
+  public static readonly database = config.get<{
+    sync: boolean;
+  }>('database');
 }

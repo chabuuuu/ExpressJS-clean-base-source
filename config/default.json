@@ -1,32 +1,41 @@
 {
-    "server": {
-        "port":  3000,
-        "host": "localhost",
-        "api_version": "/api/v1"
-    },
+  "server": {
+    "port": 3000,
+    "host": "localhost",
+    "api_version": "/api/v1"
+  },
 
-    "request-limit": {
-        "limit": "100kb"
-    },
+  "request-limit": {
+    "limit": "100kb"
+  },
 
-    "cors": {
-        "origin": "*",
-        "methods": ["GET", "POST", "PUT", "DELETE", "UPDATE"],
-        "allowedHeaders": ["X-Requested-With", "X-HTTP-Method-Override", "Content-Type", "Accept", "Observe", "Authorization"]
-    },
+  "cors": {
+    "origin": "*",
+    "methods": ["GET", "POST", "PUT", "DELETE", "UPDATE"],
+    "allowedHeaders": [
+      "X-Requested-With",
+      "X-HTTP-Method-Override",
+      "Content-Type",
+      "Accept",
+      "Observe",
+      "Authorization"
+    ]
+  },
 
-    "helmet": {
-        "enable": false
-    },
+  "helmet": {
+    "enable": false
+  },
 
-    "enviroment": "default",
+  "enviroment": "default",
 
-    "morgan" : 
-    {
-        "format": "dev"
-    },
+  "morgan": {
+    "format": "dev"
+  },
 
-    "swagger": {
-        "enable": true
-    }
+  "swagger": {
+    "enable": true
+  },
+  "database": {
+    "sync": true
+  }
 }

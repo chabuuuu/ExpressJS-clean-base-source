@@ -45,6 +45,20 @@ npm run build
 npm run start:prod
 ```
 
+### Start using docker compose
+
+On first start up:
+
+```
+mkdir -p docker-data/data/redis docker-data/data/postgres/data docker-data/data/postgres/config docker-data/data/redis docker-data/data/media && sudo chmod -R a+rwx docker-data/
+```
+
+Then:
+
+```
+docker compose up --build -d
+```
+
 ### How to create new API Endpoint:
 
 1. Create new Model Class in src/models
