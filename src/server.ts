@@ -70,7 +70,7 @@ app.listen(PORT, async () => {
    * Init database connection
    */
   await connection.authenticate();
-  if (GlobalConfig.enviroment === 'development') {
+  if (GlobalConfig.database.sync) {
     await connection.sync();
   }
 
